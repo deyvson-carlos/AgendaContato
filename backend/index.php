@@ -29,34 +29,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Obter o ID do contato da URL
     $urlParts = explode('/', $_SERVER['REQUEST_URI']);
     $contactIdToDelete = end($urlParts);
 
-    // Certifique-se de que o ID do contato é válido
     if (!empty($contactIdToDelete)) {
         $contactController = new ContactController;
         $result = $contactController->deleteContact($contactIdToDelete);
 
         echo json_encode($result);
     } else {
-        // Se o ID do contato não estiver presente na URL, enviar uma resposta de erro
         http_response_code(400);
         echo json_encode(['error' => 'ID do contato não fornecido']);
     }
 }
 
 elseif ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'PATCH') {
-    // Obter o ID do contato da URL
     $urlParts = explode('/', $_SERVER['REQUEST_URI']);
     $contactIdToUpdate = end($urlParts);
 
-    // Certifique-se de que o ID do contato é válido
     if (!empty($contactIdToUpdate)) {
-        // Obter dados do corpo da requisição
         $data = json_decode(file_get_contents('php://input'), true);
 
-        // Extrair dados do corpo da requisição
         $name = $data['name'];
         $email = $data['email'];
         $phone = !empty($data['phone']) ? $data['phone'] : '81999999999';
@@ -70,7 +63,6 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === '
 
         echo json_encode($result);
     } else {
-        // Se o ID do contato não estiver presente na URL, enviar uma resposta de erro
         http_response_code(400);
         echo json_encode(['error' => 'ID do contato não fornecido']);
     }

@@ -131,14 +131,12 @@ export default {
   data() {
     return {
       formData: {
-        name: "", // Inicialize os campos com valores vazios
+        name: "",
         email: "",
         phones: [],
         street: "",
-        // Adicione outros campos conforme necessário
       },
-      phoneInput: "", // Inicialize a entrada do telefone como vazia
-      // Adicione outras propriedades conforme necessário
+      phoneInput: "",
     };
   },
   methods: {
@@ -158,17 +156,15 @@ export default {
 
     const updatedContact = await response.json();
 
-    // Emitir um evento para o componente pai
     this.$emit('contactUpdated', updatedContact);
 
-    // Redirecionar de volta à lista de contatos
     this.$router.push('/contactlist');
   } catch (error) {
     console.error('Erro ao atualizar contato:', error.message);
   }
 },
 
-  // ... restante do código
+
 }
 };
 </script>

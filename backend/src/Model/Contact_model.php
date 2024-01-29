@@ -17,7 +17,6 @@ class Contact_model
     public function createContact($name, $email, $phone, $smartphone, $street, $city, $state, $cep)
     {
         try{
-            // $phonesString = implode(',', $phone);
             $stmt = $this->pdo->prepare(" INSERT INTO contacts (name, email, phones, street, city, state, cep) 
                 VALUES (:name, :email, :phone, :street, :city, :state, :cep)");
                 
@@ -29,21 +28,17 @@ class Contact_model
             $stmt->bindParam(':state', $state);
             $stmt->bindParam(':cep', $cep);
 
-            // Executar a instrução SQL
             $stmt->execute();
-           // Fetch the last inserted record
             $stmt = $this->pdo->prepare("SELECT * FROM contacts WHERE id = LAST_INSERT_ID()");
             $stmt->execute();
             $lastInsertedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // You can return any other relevant information as well
             return [
                 'message' => 'Contato inserido com sucesso!',
                 'schedule' => $lastInsertedRecord,
             ];
 
         } catch (Exception $e) {
-            // Capturar a exceção em caso de erro na inserção
             return $e->getMessage();
         }
     }
@@ -63,9 +58,7 @@ class Contact_model
 
 public function deleteContact($contactId)
     {
-        // var_dump('oi');die();
         try {
-            // $stmt = $this->pdo->prepare("UPDATE contacts SET deleted = 1 WHERE id = :id");
             $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE id = :id");
             $stmt->bindParam(':id', $contactId);
             $stmt->execute();

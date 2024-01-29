@@ -189,8 +189,7 @@ export default {
           console.error("Erro ao obter contatos:", data.error);
         } else {
           this.contacts = data;
-          // Remova a chamada para sortContacts() se a ordenação estiver sendo feita no backend
-          this.sortContacts(); // Adicione esta chamada se a ordenação for necessária no frontend
+          this.sortContacts();
         }
       })
       .catch((error) => console.error("Erro ao obter contatos:", error));
@@ -198,18 +197,14 @@ export default {
 
   methods: {
     editContact(contact) {
-      // Navegue para a página de edição passando o ID do contato como parâmetro
       this.$router.push({ name: "contactEdit", params: { id: contact.id } });
     },
 
     handleContactUpdated(updatedContact) {
-      // Atualizar a lista de contatos após a edição
       const index = this.contacts.findIndex(contact => contact.id === updatedContact.id);
       if (index !== -1) {
-        // Substituir o contato antigo pelo atualizado
         this.contacts.splice(index, 1, updatedContact);
       }
-      // Limpar o contato editado
       this.editedContact = null;
     },
 
@@ -234,9 +229,7 @@ export default {
         .then((data) => {
           console.log("Contato marcado como excluído com sucesso:", data);
 
-          // Verifique se 'data.contacts' está definido
           if (data.contacts !== undefined) {
-            // Atualizar a lista de contatos após a marcação como excluído
             this.contacts = data.contacts;
             console.log("Lista de contatos atualizada:", this.contacts);
           } else {
@@ -277,7 +270,6 @@ export default {
           : nameB.localeCompare(nameA);
       });
     },
-    // ... (outros métodos) ...
   },
 };
 </script>

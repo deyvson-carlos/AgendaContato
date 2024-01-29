@@ -218,7 +218,6 @@ export default {
       this.formData.phones.splice(index, 1);
     },
     restrictToNumbers() {
-      // Remova caracteres não numéricos em tempo real enquanto o usuário digita
       this.phoneInput = this.phoneInput.replace(/\D/g, "");
     },
 
@@ -234,15 +233,10 @@ export default {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      // Verifica se a resposta indica sucesso
       if (data && data.message === "Contato inserido com sucesso!") {
-        // Exibe um alerta com a mensagem de sucesso
         alert("Contato salvo com sucesso!");
 
-        // Você pode optar por limpar o formulário ou realizar outras ações aqui
 
-        // Se preferir, não redirecione automaticamente para a página ContactList
-        // this.$router.push("/contactlist");
       } else {
         console.error("Erro ao salvar contato:", data.error || "Erro desconhecido");
       }

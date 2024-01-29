@@ -1,6 +1,5 @@
 <?php
 
-// ContactController.php
 
 namespace agenda_de_contato_php\Controller;
 
